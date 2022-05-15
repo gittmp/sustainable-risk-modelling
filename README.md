@@ -1,1 +1,1 @@
-# sustainable-risk-modelling
+# Sustainable Risk Modelling (Thesis 2022)
