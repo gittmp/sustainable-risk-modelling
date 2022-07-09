@@ -1,2 +1,6 @@
-Program/vol.ipynb
-Program/metrics.txt
+*/Report*
+!/Report/resources/*
+!/Report/report.pdf
+!/Report/report.tex
+
+.DS_Store
