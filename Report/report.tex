@@ -99,46 +99,81 @@
     % ----------------------  ABSTRACT -----------------------
     \newpage
     \addcontentsline{toc}{chapter}{Abstract}
+    % \begin{abstract}
+    %     \subsubsection*{Context/Background}
+
+    %     The financial sector has long been associated with largely negative environmental, social, and governance (ESG) impacts, including being a major contributor to global carbon emissions. Despite the attempts by some to prioritise \emph{sustainable finance}, the recent expansion of financial technology---incorporating new, expensive methods such as \emph{deep learning} (DL)---has only worsened the energy consumption attributed to this industry, accelerating its carbon emissions.   
+
+    %     \subsubsection*{Aims}
+
+    %     In an attempt to mitigate this trend and reduce the ESG impacts of financial technology, this project aims to develop an energy-efficient DL system for financial modelling. Specifically, this research will explore existing methods from the field of \emph{Green AI} that attempt to reduce the energy consumption of training DL models, and apply these for the first time to models used in finance. Hence, a performant financial model will be developed that not only produces accurate results within the field of financial modelling (in particular financial volatility modelling), but prioritises learning how to generate this performance in an efficient manner, minimising the energy and data resources expended over this training process. The development of such a system aims to demonstrate that the principles of Green AI (i.e. DL methods with low time, data, memory, and energy consumption) are applicable within the financial sector, improving the sustainability of DL models used within this field, furthering the scope of sustainable finance and minimising the ESG impacts of finance in general.
+
+    %     \subsubsection*{Method}
+
+    %     The following research will commence with an analysis of the efficiency and resource requirements of typically used systems in the field of deep learning for finance. A particular focus will be given to the domain of financial risk modelling, as this is a major application of deep learning in finance, and the \emph{long short-term memory} (LSTM) networks typically exploited for such tasks. Building upon this, energy and data-efficient extensions to the way in which these deep models are trained will be explored, developing a financial risk model that consumes less energy and requires less data during training, but maintains accurate performance. Specifically, methods such as \emph{active learning}, \emph{progressive training}, and \emph{quantisation} will be exploited to reduce the model's resource requirements, proving the feasibility of DL systems that are both performant and energy-efficient within this field, and hence providing a new avenue to mitigate the ESG impacts of the financial sector.
+
+    %     \subsubsection*{Outline of Research}
+
+    %     \begin{itemize}
+    %         \item \underline{Chapter 3: \emph{Baseline Finanical Volatility Model}}. Initially, an exemplary DL model will be implemented, using a traditional training process and network architecture (e.g. LSTM layers) typically seen within the domain of financial risk modelling. This will be used as an example of the data and energy requirements typical of this domain, acting as a baseline for comparative analysis of the efficiency improvements later introduced.
+            
+    %         \item \underline{Chapter 4: \emph{Energy-efficient training extensions}}. Once the baseline model has been implemented, several extensions and adaptations will be made to the training process used by this system. These extensions (e.g. progressive training and quantisation) will prioritise reducing the energy consumed by the system during training, whilst still producing an accurately performing model.
+            
+    %         \item \underline{Chapter 5: \emph{Data-efficient training extensions}}. Additionally, extensions to the training process will be made that reduce the amount of training data necessary to produce a model with comparative accuracy (e.g. active learning), further lowering the computational requirements of this efficient system.
+    %         Additionally, extensions to the training process will be made that reduce the amount of training data necessary to produce a model with comparative accuracy (e.g. active learning), further lowering the computational requirements of this efficient system.
+
+    %         \item \underline{Chapter 6: \emph{Extended evaluation}}. To evaluate the success of the aforementioned implementations in reducing the energy and data requirements of deep learning for finance, an extensive analysis of the performance of the complete system will be made, comparing both its efficiency and accuracy to the baseline model (and inspecting any accuracy-efficiency tradeoffs made). 
+            
+    %     \end{itemize}
+
+    %     \subsubsection*{Contributions to Science}
+
+    %     \begin{enumerate}
+    %         \item \emph{Expanding the applications of Green AI}. The first application of Green AI principles and methodology to the field of finance. This will further demonstrate the utility and promise of Green AI by proving that such systems can provide compelling performance with a lower environmental cost in new domains outside of the existing research focus on \emph{natural language processing}, \emph{computer vision}, and \emph{mobile computing}.
+            
+    %         \item \emph{Reducing the environmental impact of financial technology}. The combination of the research fields of FinTech, deep learning for finance, sustainable finance, and Green AI, to create the new research domain of \emph{sustainable deep learning for sustainable finance}. This should advance the improvements to ESG factors introduced by previous work in sustainable finance by mitigating the conflict between the utility of deep learning models for sustainability modelling and the intrinsic carbon footprint of these energy-intensive systems.
+            
+    %         \item \emph{Improving the inclusivity of finance}. The reduction in the financial, environmental, and social cost of deep learning for finance also increases the inclusivity of this field, creating a lower bar to entry such that more industry players, developers, and individual traders could leverage financial computing and analytics.
+    %     \end{enumerate}
+
+    %     \vspace{1cm}
+    %     \noindent
+    %     \textbf{Keywords:} Green AI, Green Deep Learning, Energy Efficiency, Data Efficiency, Sustainable Finance, Financial Volatility Modelling, LSTM
+
+    % \end{abstract}
+
+
     \begin{abstract}
-        \subsubsection*{Context/Background}
 
-        The financial sector has long been associated with largely negative environmental, social, and governance (ESG) impacts, including being a major contributor to global carbon emissions. Despite the attempts by some to prioritise \emph{sustainable finance}, the recent expansion of financial technology---incorporating new, expensive methods such as \emph{deep learning} (DL)---has only worsened the energy consumption attributed to this industry, accelerating its carbon emissions.   
+        This thesis investigates the use of energy-efficient methods for financial volatility forecasting using deep neural networks in an attempt to reduce the energetic cost of such a system and exemplify how the sustainability of deep learning for finance can be improved.
 
-        \subsubsection*{Aims}
-
-        In an attempt to mitigate this trend and reduce the ESG impacts of financial technology, this project aims to develop an energy-efficient DL system for financial modelling. Specifically, this research will explore existing methods from the field of \emph{Green AI} that attempt to reduce the energy consumption of training DL models, and apply these for the first time to models used in finance. Hence, a performant financial model will be developed that not only produces accurate results within the field of financial modelling (in particular financial volatility modelling), but prioritises learning how to generate this performance in an efficient manner, minimising the energy and data resources expended over this training process. The development of such a system aims to demonstrate that the principles of Green AI (i.e. DL methods with low time, data, memory, and energy consumption) are applicable within the financial sector, improving the sustainability of DL models used within this field, furthering the scope of sustainable finance and minimising the ESG impacts of finance in general.
-
-        \subsubsection*{Method}
-
-        The following research will commence with an analysis of the efficiency and resource requirements of typically used systems in the field of deep learning for finance. A particular focus will be given to the domain of financial risk modelling, as this is a major application of deep learning in finance, and the \emph{long short-term memory} (LSTM) networks typically exploited for such tasks. Building upon this, energy and data-efficient extensions to the way in which these deep models are trained will be explored, developing a financial risk model that consumes less energy and requires less data during training, but maintains accurate performance. Specifically, methods such as \emph{active learning}, \emph{progressive training}, and \emph{quantisation} will be exploited to reduce the model's resource requirements, proving the feasibility of DL systems that are both performant and energy-efficient within this field, and hence providing a new avenue to mitigate the ESG impacts of the financial sector.
-
-        \subsubsection*{Outline of Research}
-
+        \textbf{Context/background:} The financial sector has long been associated with largely negative environmental, social, and governance (ESG) impacts, including being a major contributor to global carbon emissions. Despite the attempts by some to prioritise \emph{sustainable finance}, the recent expansion of financial technology---incorporating new, expensive methods such as \emph{deep learning} (DL)---has only worsened the energy consumption attributed to this industry, accelerating its carbon emissions.
+        
+        \textbf{Aims:} In an attempt to address these negative impacts of financial technology, this project aims to develop an energy-efficient DL system for financial modelling. This research will explore \emph{Green AI} methods that attempt to reduce the energy expended training DL models, and apply these for the first time to models used in finance. To exemplify the benefits of these methods, a performant financial volatility model will be developed that not only produces accurate results, but prioritises generating this performance in an efficient manner, minimising the energy and data resources required during training. This system aims to demonstrate that the principles of Green AI are applicable within the financial sector, furthering the scope of sustainable finance by improving the sustainability of deep learning for finance and, hence, minimising the ESG impacts of the financial sector.
+        
+        \textbf{Method:} This research will commence with an analysis of the resource requirements of typical systems in the field of deep learning for finance. A particular focus will be given to the domain of financial volatility modelling, as this is a major application of deep learning in finance, and the \emph{long short-term memory} (LSTM) networks typically exploited for such tasks. Energy and data-efficient training methods will be explored, developing a deep model that consumes less energy and requires less data to train, but maintains accurate performance. Specifically, methods such as \emph{active learning}, \emph{progressive training}, and \emph{mixed precision} will be explored that reduce the resource requirements of training, proving the feasibility of efficient models within this field.
+        \\ \\
+        \textbf{Outline of research:} 
         \begin{itemize}
-            \item \underline{Chapter 3: \emph{Baseline Finanical Volatility Model}}. Initially, an exemplary DL model will be implemented, using a traditional training process and network architecture (e.g. LSTM layers) typically seen within the domain of financial risk modelling. This will be used as an example of the data and energy requirements typical of this domain, acting as a baseline for comparative analysis of the efficiency improvements later introduced.
-            
-            \item \underline{Chapter 4: \emph{Energy-efficient training extensions}}. Once the baseline model has been implemented, several extensions and adaptations will be made to the training process used by this system. These extensions (e.g. progressive training and quantisation) will prioritise reducing the energy consumed by the system during training, whilst still producing an accurately performing model.
-            
-            \item \underline{Chapter 5: \emph{Data-efficient training extensions}}. Additionally, extensions to the training process will be made that reduce the amount of training data necessary to produce a model with comparative accuracy (e.g. active learning), further lowering the computational requirements of this efficient system.
-            Additionally, extensions to the training process will be made that reduce the amount of training data necessary to produce a model with comparative accuracy (e.g. active learning), further lowering the computational requirements of this efficient system.
+            \item \underline{Chapter \ref{section: baseline}: \emph{Baseline finanical volatility model}}. An initial deep model will be implemented, using a traditional training process and LSTM architecture, to act as an exemplar of the resource requirements of this domain.
 
-            \item \underline{Chapter 6: \emph{Extended evaluation}}. To evaluate the success of the aforementioned implementations in reducing the energy and data requirements of deep learning for finance, an extensive analysis of the performance of the complete system will be made, comparing both its efficiency and accuracy to the baseline model (and inspecting any accuracy-efficiency tradeoffs made). 
+            \item \underline{Chapter \ref{section: energy-extensions}: \emph{Energy-efficient training extensions}}. Several adaptations to the model training process will be made that prioritise reducing the energy consumed by the system.
             
+            \item \underline{Chapter \ref{section: data-extensions}: \emph{Data-efficient training extensions}}. Additional adaptations will be made that reduce the necessary amount of training data, further lowering resource requirements.
+            
+            \item \underline{Chapter \ref{section: evaluation}: \emph{Extended evaluation}}. An analysis will be made between the baseline and extended models, comparing the performance and efficiency of each, and discussing their success in reducing resource requirements.
         \end{itemize}
 
-        \subsubsection*{Contributions to Science}
-
+        \textbf{\\Contributions to science:} 
         \begin{enumerate}
-            \item \emph{Expanding the applications of Green AI}. The first application of Green AI principles and methodology to the field of finance. This will further demonstrate the utility and promise of Green AI by proving that such systems can provide compelling performance with a lower environmental cost in new domains outside of the existing research focus on \emph{natural language processing}, \emph{computer vision}, and \emph{mobile computing}.
-            
-            \item \emph{Reducing the environmental impact of financial technology}. The combination of the research fields of FinTech, deep learning for finance, sustainable finance, and Green AI, to create the new research domain of \emph{sustainable deep learning for sustainable finance}. This should advance the improvements to ESG factors introduced by previous work in sustainable finance by mitigating the conflict between the utility of deep learning models for sustainability modelling and the intrinsic carbon footprint of these energy-intensive systems.
-            
-            \item \emph{Improving the inclusivity of finance}. The reduction in the financial, environmental, and social cost of deep learning for finance also increases the inclusivity of this field, creating a lower bar to entry such that more industry players, developers, and individual traders could leverage financial computing and analytics.
-        \end{enumerate}
+            \item \emph{Expanding the applications of Green AI}. The first application of Green AI to the finance sector, further demonstrating the utility and importance of Green AI to lowering the environmental cost of deep learning. 
 
-        \vspace{1cm}
-        \noindent
-        \textbf{Keywords:} Green AI, Green Deep Learning, Energy Efficiency, Data Efficiency, Sustainable Finance, Financial Volatility Modelling, LSTM
+            \item \emph{Reducing the environmental impact of financial technology}. The improvement of sustainable finance to include the new research domain of \emph{sustainable deep learning for sustainable finance}. 
+
+            \item \emph{Improving the inclusivity of finance}. Lowering the bar-to-entry to engage in deep learning for finance,  allowing more individuals to leverage financial technology and analytics.
+        \end{enumerate}
+        
+        \textbf{\\Keywords:} Green AI, Green Deep Learning, Energy Efficiency, Data Efficiency, Sustainable Finance, Financial Volatility Modelling, Long Short-Term Memory
 
     \end{abstract}
 
@@ -173,33 +208,54 @@
     \newpage
     \pagenumbering{arabic}
     \chapter{Introduction}
+    \label{chapter: intro}
 
     Test of citations \citep{xu-2021}.
 
     \section{Topic \& Background}
+    \label{section: topic}
 
     \section{Research Motivations \& Objectives}
+    \label{section: motivations}
 
     \section{Research Methodology}
+    \label{section: method}
 
     \section{Contributions to Science}
+    \label{section: contributions}
 
     \section{Outline of Structure}
+    \label{section: structure}
 
 
     % --------------------  LITERATURE REVIEW ----------------------
     \newpage
     \chapter{Background \& Literature Review}
+    \label{chapter: literature}
 
 
     % --------------------  EXPERIMENTS ----------------------
     \newpage
     \chapter{Experiments}
+    \label{chapter: experiments}
+
+    \section{Baseline Financial Volatility Model}
+    \label{section: baseline}
+
+    \section{Energy-Efficient Training Extensions}
+    \label{section: energy-extensions}
+
+    \section{Data-Efficient Training Extensions}
+    \label{section: data-extensions}
+
+    \section{Extended evaluation}
+    \label{section: evaluation}
 
 
     % --------------------  CONCLUSIONS ----------------------
     \newpage
     \chapter{Conclusions \& Future Work}
+    \label{chapter: conclusion}
 
 
     % --------------------  BIBLIOGRAPHY ---------------------
