@@ -29,12 +29,6 @@
 \hbadness=10000
 
 
-
-% This package provides an easy way to input latin sample text (for the template only)
-\usepackage{blindtext}
-
-
-
 % Title page information
 \title{Energy-Efficient Deep Learning for Finance}
 \author{Tom Maxwell Potter}
@@ -124,7 +118,7 @@
             
             \item \underline{Chapter \ref{section: data-extensions}: \emph{Data-efficient training extensions}}. Additional adaptations will be made that reduce the necessary amount of training data, further lowering resource requirements.
             
-            \item \underline{Chapter \ref{section: evaluation}: \emph{Discussion \& evaluation}}. An analysis will be made between the baseline and extended models, comparing the performance and efficiency of each, and discussing their success in reducing resource requirements.
+            \item \underline{Chapter \ref{chapter: evaluation}: \emph{Discussion \& evaluation}}. An analysis will be made between the baseline and extended models, comparing the performance and efficiency of each, and discussing their success in reducing resource requirements.
         \end{itemize}
         
         \textbf{\\ \\Keywords:} Green AI, Green Deep Learning, Energy Efficiency, Data Efficiency, Sustainable Finance, Financial Volatility Modelling, Long Short-Term Memory
@@ -136,7 +130,6 @@
     \newpage
     \chapter*{Acknowledgements}
     \addcontentsline{toc}{chapter}{Acknowledgement}
-    \blindtext 
 
 
     % -----------------  TABLE OF CONTENTS -------------------
@@ -169,6 +162,7 @@
 
     Many industries have recently been under increased pressure to monitor and rectify their environmental impact. This pressure is typically directed towards the perceived high carbon industries that constitute the major pollutant sectors of the economy, such as transport, energy supply, and agriculture. For example, recent estimates suggest that of the $33.5$ billion tons of carbon dioxide emissions generated globally in 2018, $8$ billion tons could be attributed to the transport sector \citep{iea-2022}, and $60.3$ billion tons to farming and livestock \citep{ahmad-2022}. These concerning figures have rightly sparked increased international discussion surrounding global carbon emissions and sustainability, such as the 2021 \emph{United Nations Climate Change Conference} (COP26).
 
+
     \subsection{Sustainable Finance}
 
     The finance sector has long been closely associated with sustainability concerns such as those discussed at COP26, being a major contributor to global carbon emissions both directly and indirectly. The most visible environmental impact of the financial industry is its direct emissions from business practices such as the distribution of cash through the economy (e.g. cash transport and ATM power consumption), card payment processing centres, and everyday operational costs such as heating office buildings \citep{hanegraaf-2018}. However, indirect emissions---attributable to services such as investing and lending---have been estimated to contribute over 700 times more to the carbon footprint of the financial industry than all direct emissions \citep{power-2020}. This form of carbon emissions, entitled \emph{financed emissions} by \citet{power-2020}, includes practices such as financing fossil fuel companies---who have received \$3.8 trillion in funding from global banks since the \emph{Paris Agreement} was signed in 2016 \citep{rainforest-2021}. In their survey of $700$ global financial institutions, \citet{power-2020} estimated that the production of over $1.04$ billion tons of carbon dioxide was attributable to financed emissions in 2020 (approximately $3.1\%$ of global emissions). However, they note this figure is likely to significantly understate the total global financed emissions, as of the $700$ contacted institutions only $332$ responded, and only $25\%$ of those reported financed emissions (typically on less than $50\%$ of their portfolios). Furthermore, a recent report by \emph{Greenpeace} and the \emph{WWF} concluded that the combined carbon emissions of the largest banks and investors in the UK in 2019 totalled $805$ million tons, which (if consolidated into its own country) would rank 9th in the global list of total emissions per country (Greenpeace, 2021). This figure is $1.8$ times higher than the total emissions of the UK ($455$ million tons), and almost $90\%$ of the global emissions from commercial aviation ($918$ million tons) in the same year \citep{graver-2020}.
@@ -177,11 +171,13 @@
 
     This discussion around sustainable finance largely began with \citeauthor{ferris-1986}'s examination of the benefits of investing pension funds in a socially responsible way. Following this, early research mainly focussed on \emph{socially responsible investing}, where investments are made that not only prioritise profits but further current positive social movements and mitigate societal concerns \citep{cunha-2021}. During the 2000s, research began to exhibit a new focus on environmental sustainability, considering factors such as climate change and renewable energy \citep{laan-2004}. Later research further pushed the scope and impact of environmentally-focused practices with the development of new domains such as \emph{climate finance} \citep{hogarth-2012}, where the mitigation of climate change is prioritised through investment and financing, and \emph{carbon finance} \citep{aglietta-2015}, which focusses on investments that seek to lower or offset carbon emissions. Recent research within sustainable finance has pushed this environmental focus further, aiming to put into practice the sustainability goals set out by the Paris Agreement, ESG factors, and SDGs. Specifically, a new interest has been taken in sustainable investment fields such as \emph{impact investing} \citep{agrawal-2021} and \emph{ESG investing} \citep{alessandrini-2020}, where investments are made that produce measurable improvements to environmental issues (according to criteria such as their ESG impacts). This recent focus has significantly increased the prominence and influence of sustainable finance. In their review of $936$ research papers, \citet{kumar-2022} found that almost $70\%$ of sustainable finance research had been published between 2015--2020, and an exponential trend was exhibited in the increase in papers being published each year; additionally, they found that the top three most cited papers all conducted research in the field of impact investing. Furthermore, \citeauthor{kumar-2022} assert that in 2020, \$400 billion of new sustainability funds were raised on capital markets. Hence, it is clear the scope and impact of sustainable finance is currently on the rise, predominantly driven by a renewed focus on the ESG impacts of financial practices, resources, and investments.
 
+
     \subsection{Financial Technology and the Issues with Sustainable Finance}
 
     Whilst the \$400 billion raised in sustainability funds seems impressive, in the same year the total US equity market value was over \$40 trillion \citep{siblis-2022}, meaning globally only $0.98\%$ of the value of the US equity market alone was raised. Furthermore, recent research has uncovered the prevalence of investment \emph{greenwashing} \citep{popescu-2021}, where institutions misleadingly classify their practices and investments as sustainable without credible data to back up their claims (and often excluding data that would suggest the opposite). In their review, \citet{cunha-2021} raised similar concerns, asserting that research into sustainable finance is currently ``excessively fragmented". These issues indicate that whilst attention is growing around the sustainability of financial practices, this domain is still not widely recognised, and further work and research are still necessary to increase the adoption of sustainable methods and tools within finance. 
 
     An additional concern is that the tools used to conduct financial practices are becoming increasingly resource-hungry at a pace exceeding the adoption rate of sustainable finance. A clear exemple of this is the increased adoption of technology throughout the finance industry. Recently, a surge of developments in financial technology (\emph{Fintech}) has revolutionalised the methods and practices used across the field of finance, from the large financial institutions and increasing number of Fintech startups, to groups of academic researchers. This Fintech revolution has transformed many aspects of finance, promising to enhance and automate existing financial services, and deliver new, innovative financial products. In their exploration of the evolution of Fintech, \citet{palmie-2020} assert that this adoption emerged in three waves. They suggest that it began with the utilisation of electronic payments and online banking, digitalising the world of finance; the second wave then came with the emergence of blockchain technology and cryptocurrencies, which further disrupted the way currency is stored and transacted. The third and most recent Fintech wave, \citet{palmie-2020} claim, is the current upwards trend in financial institutions' reliance upon \emph{artificial intelligence} (AI). Driven by the promise of increased automation and computing power, the utilisation of AI within the financial sector has been rapidly expanding over recent years, becoming a core component of many of the financial products and services used today: from accurate real-time financial fraud detection \citep{sadgali-2019} to automated analysis of financial statements \citep{amel-2020}.
+
 
     \subsection{Deep Learning for Finance}
 
@@ -190,6 +186,7 @@
     The recent success in utilising DL---such as that of AlphaFold and PaLM---has driven an increased adoption of AI and DL further afield, such as within the finance industry. In fact, global spending on AI is predicted to double in value by 2024, from \$50 billion in 2020 to an estimated \$110 billion \citep{oecd-2021}. Specifically, the global AI Fintech market was estimated as being worth \$7.91 billion in 2020 and is forecast to grow to \$27 billion by 2026 \citep{mordor-2021}. Furthermore, in a survey of 206 executives from US financial service companies, \citet{gokhale-2019} found that $70\%$ used ML within their financial institutions for practices such as detecting irregular patterns in transitions, and building advanced credit models. In a similar survey, \citet{chartis-2019} found ML to be a core component in current financial technology, revolutionising data processing and modelling practices.
 
     In their survey of financial professionals, \citet{chartis-2019} discovered that $44\%$ of respondents cited ``greater accuracy of process and analysis" as a key motivation behind their adoption of AI methods. This superior accuracy provided by ML and DL methods---publicised through models like PaLM pushing the boundaries of computational accuracy---provides a compelling alternative to traditional statistical models. Hence, the promise of increased accuracy of performance is a major driving factor behind recent ML adoption within Fintech. For example, recent DL-based financial systems have been shown to predict borrower defaults with greater accuracy than achievable with traditional approaches \citep{albanesi-2019}.
+
 
     \subsection{The Issues with Deep Learning}
 
@@ -203,20 +200,60 @@
 
     Hence, whilst DL been shown to provide state-of-the-art computational accuracy across a range of fields, its environmental impact cannot be ignored. Therefore, the accelerating reliance on ML and DL within Fintech poses issues for its sustainability, as this the models and methods contribute further to the negative ESG impacts of the financial sector. This issue generates a clear conflict between the growing use of DL in Fintech, and the growing need for sustainable finance. Both of these fields provide great utility to the finance sector: Fintech (including DL) provides innovative services to consumers and accurate tools for institutions, and sustainable finance ensures the industry has minimal ESG problems. Moreover, DL has been shown to have utility for work in sustainability further afield, such as improving the efficiency of exploiting renewable energy sources \citep{daniel-2021}, and even within sustainable finance itself, for example using ML to analyse the ESG factors of potential investments \citep{mehra-2022}. For these reasons, a compromise between the use of DL Fintech and the prioritisation of sustainable finance must be reached. 
 
+
     \subsection{Green AI}
 
+    This apparent gap between the utility of DL systems---provided by their superior accuracy over traditional methods---and their environmental consequences has recently started to gather attention from ML researchers. In what has become known as \emph{Green AI} \citep{schwartz-2019}, new research has begun to consider how to mitigate the negative ESG impacts of ML by improving the efficiency of DL models. These efficient models reduce the energy required for training and deployment, minimising the carbon emissions they contribute towards. 
 
-    \section{Research Motivations \& Objectives}
+    Alongside \emph{mobile computing}, which prioritises energy-efficient methods due to the hardware constraints of mobile devices, the research domains of \emph{Natural Language Processing} (NLP) and \emph{Computer Vision} (CV) are currently the predominat fields focussing on Green AI, as both these areas exploit highly complex models, and require efficient real-time processing when deployed. NLP focuses on the processing and understanding of language (e.g. using language models to make predictions about text sequences), typically using large, complex DL models in an attempt to match and exceed human accuracy in language modelling (e.g. \citet{chowdhery-2022}). CV typically uses complex models with expensive methods---such as the \emph{convolution operation} \citep{dumoulin-2018}---to analyse, classify, and map visual environments. Within these fields, Green AI developers have been working to promote the utilisation of efficient methods that reduce the energy, time, and data requirements of model training by using parameters, data, and operations more intelligently (without producing a significant drop in accuracy). However, the major limitation of Green AI is that these methods have yet to garner significant attention outside of the specific research domains of NLP, CV, and mobile computing. Therefore the utility of these methods to improving the sustainability of ML has largely not been demonstrated further afield, meaning their potential benefits to reduce the energy consumption and carbon emissions of ML have yet to be seen on a wide scale.
+
+
+    \section{Research Motivations}
     \label{section: motivations}
 
-    \section{Research Methodology}
-    \label{section: method}
+    Due to the energy-intensive nature of high-performance DL systems, it is clear their usage comes alongside several environmental and social issues, including their significant carbon footprint and financial cost. For this reason, the accelerating adoption of ML and DL methods within Fintech raises concerns about increasing the negative ESG impacts of the financial industry. Namely, the side effects of these complex DL models produced by their large parameter and data sets and long training phases (and hence high energy budgets) are in direct conflict with the general global effort to reduce carbon emissions, and the specific goal of sustainable finance to reduce the negative ESG impacts of the financial sector. However, the benefits of DL to finance (and indeed sustainable finance) have been shown, such as improved fraud detection \citep{sadgali-2019} and ESG data analysis \citep{mehra-2022}, making their continued adoption inevitable. 
+
+    Therefore, to minimise the negative ESG impacts of the financial sector in light of the recent Fintech revolution (and solidify the benefits of sustainable finance), the adoption of Green AI principles and methods is paramount. In the first study of its kind, this thesis investigates how the energy-efficient Green AI methods can be adapted for DL in finance. This research aims to demonstrate how the Fintech revolution (in particular the expanding use of DL) does not have to come with significant environmental and social costs, and how the models and methods used in this field can coincide with the SDGs of sustainable finance. To exemplify the promise of introducing Green AI to Fintech and sustainable finance, energy-efficient methods will be applied to one of the most popular applications of DL in finance: \emph{financial risk modelling}. Specifically, a popular and important area of financial risk analysis known as \emph{volatility forecasting} will be explored, developing a DL-based model that accurately predicts the future volatility (a statistical measure of dispersion) of the \emph{S\&P 500} market, but takes minimal energy and data to train. 
+
+    Volatility forecasting is commonly used to give insight into the risk of a financial market or asset (French et al., 1987); it is also been extensively explored by researchers to showcase the prediction capabilities of DL: for example, \citet{xiong-2015} combine S\&P 500 and Google domestic trends data to model stock volatility through DL, and \citet{zhang-2022} use DL for forecasting intraday volatility. Hence, as financial risk modelling and analysis is often cited as a core application of DL in finance (such as in the reviews of \citet{sezer-2019}, \citet{ozbayoglu-2020}, and \citet{thakkar-2021}, volatility forecasting has been chosen as the specific application within Fintech to demonstrate the promise of applying Green AI methods to the finance industry.
+
+    By showing the utility of Green AI within Fintech, this thesis aims to advance the field of sustainable finance as a whole, creating a new field of \emph{sustainable deep learning for sustainable finance}. This work is the first study to address the conflict of interest between sustainable finance and the growing reliance of Fintech on DL systems with high energy consumption and concerning ESG impacts. Hence, the following research aims to demonstrate how the energy-efficient methods proposed by Green AI research (in the fields of NLP, CV, and mobile computing) can be exploited within the DL systems used in finance, increasing the scope and impact of sustainable finance by allowing it to use helpful DL systems without compromising SDGs, and reducing the emissions of Fintech in general.
+
 
     \section{Contributions to Science}
     \label{section: contributions}
 
-    \section{Outline of Structure}
+    This research contributes to scientific literature and the finance industry in a number of ways:
+
+    \begin{enumerate}
+        \item \emph{Expanding the applications of Green AI}. This thesis is the first application of Green AI principles and methodology to the field of finance. This will further demonstrate the utility and promise of Green AI by proving that such systems can provide compelling performance with a lower environmental cost in new domains outside of the existing research focus on NLP, CV, and mobile computing, expanding the scope of this field.
+        \item \emph{Reducing the environmental impact of financial technology}. The following work combines the research fields of FinTech, deep learning for finance, sustainable finance, and Green AI, to create the new research domain of \emph{sustainable deep learning for sustainable finance}. This further improves the ESG impact of the financial sector beyond previous work in sustainable finance by mitigating the conflict between the utility of DL models for sustainability modelling and the intrinsic carbon footprint of these energy-intensive systems.
+        \item \emph{Improving the inclusivity of finance}. The reduction in the financial, environmental, and social cost of DL for finance also increases the inclusivity of this field. Improving the energy efficiency of these models creates a lower bar-to-entry to using DL in finance, allowing more industry players, developers, and individual traders to utilise the advantages brought by Fintech and DL (for example, accessing improved analytics that allow more informed financial decisions).
+    \end{enumerate}
+
+
+    \section{Research Objectives \& Structure}
     \label{section: structure}
+
+    The initial objective of this research is to analyse the efficiency of a baseline DL model used for financial volatility forecasting. In particular, the resource requirements in terms of training time and training dataset size are inspected, from which an estimate can be produced of the carbon emissions associated with training such a model. A particular focus is given to the use of \emph{long short-term memory} (LSTM) networks, as these are the typically used DL model for sequence forecasting tasks in general, and recent research into volatility forecasting with DL (for example by \citet{xiong-2015}). This network and training process is implemented in \emph{Python} with the popular DL framework \emph{TensorFlow} \citep{abadi-2016}.
+
+    The baseline model is then extended with energy-efficient methods proposed by the field of Green AI. These methods adapt the way in which the LSTM-based model is trained, minimising its resource requirements. An analysis similar to that conducted upon the baseline model is then conducted, quantifying the reduction in time and energy (and hence carbon emissions) made by these energy-efficient extensions. Specifically, methods such as \emph{progressive training} and \emph{mixed-precision} training are explored, and their benefits shown. Beyond these initial adaptations, data-efficient extensions to the training process are additionally be explored, such as the use of \emph{active learning}. These methods, also adapted from Green AI research, further reduce the resource requirements of a DL model, reducing the amount of training data necessary and thus also reducing the memory and energy required by the DL training process.
+
+    Given these energy and data-efficient model extensions, an extensive analysis of the benefit of Green AI methods to this domain is made. This compares both the accuracy of the final model and each energy and data-efficient extension to the original baseline model. The resource requirements (in terms of time, data, and energy) required for training will then be compared, to evaluate any accuracy-efficiency compromises made. A general conclusion is then settled upon as to the utility and viability of Green AI methods to Fintech, sustainable finance, and the finance industry in general.
+
+    The aforementioned research will be organised as follows: 
+
+    \begin{itemize}
+        \item \underline{Chapter \ref{chapter: literature}: \emph{Literature review}}. The relevant literature to this research is first explored to give an overview of the key concepts and methodologies utilised in the following experimentation. This begins with a general exploration of machine learning, which then leads to a more refined discussion of the use of DL in finance, and the specific DL methods and concepts focussed upon within this thesis, giving a clear outline of the domain of financial volatility forecasting. Following this, the review explores the research domain of Green AI, with a focus on the specific methods and practices used in Green AI research which will go on to be a core aspect of this thesis.
+        
+        \item \underline{Chapter \ref{section: baseline}: \emph{Baseline finanical volatility model}}. An explanation and analysis of the baseline volatility model implemented, exemplifying the typical models, methods, and resource requirements of this domain.
+
+        \item \underline{Chapter \ref{section: energy-extensions}: \emph{Energy-efficient training extensions}}. Once the baseline model has been implemented, several energy-efficient adaptations to its training process shall be explored. This section gives a complete overview of these methods, explaining how they work, the motivations behind their use, and their utility in decreasing the energy consumption of training.
+        
+        \item \underline{Chapter \ref{section: data-extensions}: \emph{Data-efficient training extensions}}. The utilised methods to reduce the data requirements of training are then be explored, discussing their origins within Green AI, explaining how they work, and evaluating their effectiveness.
+        
+        \item \underline{Chapter \ref{chapter: evaluation}: \emph{Discussion \& evaluation}}. Once the detail of the utilised model and extensions has been thoroughly explained, the results of the experimentation are discussed, evaluating the accuracy and efficiency of each method to deduce the success of the application of Green AI to finance.
+    \end{itemize}
 
 
     % --------------------  LITERATURE REVIEW ----------------------
@@ -240,10 +277,10 @@
     \label{section: data-extensions}
 
 
-    % --------------------  CONCLUSIONS ----------------------
+    % --------------------  EVALUATION ----------------------
     \newpage
     \chapter{Discussion \& Evaluation}
-    \label{section: evaluation}
+    \label{chapter: evaluation}
 
     % --------------------  CONCLUSIONS ----------------------
     \newpage
