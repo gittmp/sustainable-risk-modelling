@@ -286,6 +286,81 @@
     This computation is performed over all layers of the network, starting with the input layer---whose neurons take the values of the input vector---and propagating through to the output layer—the values of which are the final network output. During training, the values of the network's parameters (i.e. the elements of weight matrix $W$ and bias vector $b$) are adjusted as the model learns, manipulating its outputs to more closely align with the true labels. \emph{Backpropagation} can be used to implement this tuning process, where the gradient of loss function with respect to the parameters is determined by propagating the error of the network on the current input backwards through all its layers \citep{zaras-2022}. These parameters can then be adjusted in the direction of the negative gradient through \emph{gradient descent} (towards the minimum of the loss function).
 
 
+    \subsection{Sequence Modelling Problems}
+
+    In machine learning, a \emph{sequence} is an ordered set of data elements, each of uniform type and dimension: for example, a stream of text can be seen as a sequence of strings (i.e. words), or a video can be modelled as a sequence of pixel matrices (i.e. frames of the video). Mathematically, temporal sequences---typically referred to as \emph{time series}---can be denoted by their data elements and time indices: 
+
+    \begin{equation}
+        \label{eq: timeseries-full}
+        seq = \langle x_1, t_1 \rangle, \ldots, \langle x_T, t_T \rangle 
+        \text{.}
+    \end{equation}
+
+    These sequences are commonly abbreviated to simply denote their data elements x, indexed over the time t that they were observed:
+
+    \begin{equation}
+        \label{eq: timeseries}
+        seq = x_1, x_2, \ldots, x_t, \ldots, x_T
+        \text{.}
+    \end{equation}
+
+    \emph{Sequence modelling} (also known as \emph{sequence learning}) involves using a machine learning model, known as a sequence model, to analyse and generate sequences. The problem is common in fields such as NLP, due to data being naturally ordered in sequences (e.g. sentences of text): for example, Google's \emph{Universal Sentence Encoder} \citep{cer-2018} is a state-of-the-art DNN for text embedding (the task of encoding sentences as vectors for performing further NLP tasks such as text classification).
+
+    Sequence modelling typically takes three main avenues. Firstly, the \emph{sequence-to-vector} problem takes input of a sequence of data elements $x_1, x_2, \ldots, x_T$ up to timestep $T$ (one element at a time) and outputs a single value, or vector of values (either at each timestep or delayed to after the end of the sequence). For example, in \emph{part-of-speech tagging}---a ML application in NLP extensively reviewed by \citet{chiche-2022}---a model reads elements of a text sequence, and uses the current instance (a particular word in the sequence) and its context (the previously seen words) to classify elements of the sequence grammatically as adjectives, nouns, verbs, etc. In this case, whee each grammatical tag would be allocated a numerical label, and the output would be a vector of probabilities over all tags from which we could select the most probable predicted tag.
+
+    Secondly, the \emph{vector-to-sequence} problem completes the opposite task, taking input of a vector of values and generating a corresponding output sequence. Artificial text generators (e.g. OpenAI's GPT-3 \citep{brown-2020} and Google's PaLM \citep{chowdhery-2022}) are a representative example of this problem, where an output sequence of text is artificially created based upon a vector of input parameters specifying the desired properties of the text.
+
+    The final, and most common, form of sequence modelling is the \emph{sequence-to-sequence} problem, where both the inputs and outputs of the model are a sequence of elements. This task typically involves either \emph{translation}, where the $M$ elements in an original sequence are converted into a new sequence of length $N$, or \emph{prediction}, where the original sequence of elements $x_1, \ldots, x_M$ is used to predict a subsequent sequence $x_{M+1}, \ldots, x_{M+N}$. \emph{Machine translation} is one such application, in which a model reads a sequence of text written in one language, then translates this text into a different language, output as a new sequence: for example, Meta AI's \emph{M2M-100} \citep{fan-2020}, the first language model that can directly translate between any pair of 100 different languages. Prediction tasks are typically used for \emph{time series forecasting}, where the value of data elements is predicted over $N$ future timesteps, in such applications as \emph{stock price prediction} (extensively surveyed by \citet{sezer-2019}). In this case, the output time series $y = x_{T+1}, \ldots, x_{T+N}$ is computed based upon the context of the past time series $x_0, \ldots, x_T$. Specifically, a model $M_{\theta}$ (parameterised by $\theta$) is build that approximates the mapping $y = f( x_0, \ldots, x_T \vert \theta )$ between past and future time series.
+
+    \section{Recurrent Neural Networks}
+
+    \subsection{Neural Networks for Sequence Modelling}
+
+    The task of forecasting future values of a sequence typically poses a challenge for traditional ANN and DNN architectures. A major reason for this is the fixed input structure of a typical ANN, meaning all elements of an input sequences would have to be fed into the network at the same time, with one element per neuron in the input layer. Hence, the input would contain no intrinsic sense of order, severely limiting the amount of analysis possible by the network, as the ordering of sequences such as time series is crucial to understanding and forecasting them \citep{tsantekidis-2022}. The chosen size of the input layer would also pose a challenge for a network with a fixed input structure, as the number of input neurons would have to be made adequately large to accommodate the possible variations in sequence lengths (e.g. the length of a time series of previous values grows as the current timestep being considered moves forward in time). Furthermore, to learn a sequence’s characteristic behaviour requires persistence of information independent from its location within the sequence. Namely, the network must contextually use previous understandings to inform the current instance, wheverver they appeared in the preceding sequence. This is not possible with a traditional ANN as the parameters of channels connected to different input neurons are not shared. Therefore, when the parameters of a specific neuron and its channels are adjusted after seeing an important pattern in part of a sequence, this information will only prove useful if that patten appears again in the exact same location on the input neurons, as if the pattern occurs at a different position it will be input through different neurons with different parameters that have not been previously learned to deal with this subsequence.
+
+
+    \subsection{Recurrent Networks}
+
+    To overcome these issues with traditional ANNs, \emph{recurrent neural networks} (RNNs) were conceived that utilise recurrent loops to allow varying input lengths and the persistence of learned sequential information \citep{sharma-2022}. These networks take input of a single sequence element $x_t$ at each timestep, using this and the context of previously observed sequence elements to inform the internal state $h_t$ of the network which acts as a form of short-term memory. This state is updated sequentially at each timestep $t$ through the function $g$, parameterised by $\theta^{(g)} = \{ W^{(g)}, U^{(g)}, b^{(g)} \}$, where $W^{(g)}$ and $U^{(g)}$ are weight matrices, and $b^{(g)}$ a bias vector. Namely, the function updates the previous state $h_{t-1}$ with new useful information learned from the input $x_t$ \citep{sharma-2022}:
+
+    \begin{align}
+        \label{eq: rnn-state}
+        h_t &= g( h_{t-1}, x_t \vert \theta^{(g)} ) \\
+        &= W^{(g)} \cdot h_{t-1} + U^{(g)} \cdot x_t + b^{(g)}
+        \text{.}
+    \end{align}
+
+    The state $h_t$ is then output by the network along a recurrent loop that connects the output of the network at time $t-1$ to the input of the network at the next timestep $t$. This allows information to be passed between successive versions of the same neural network at different points in time; namely, the network itself stays the same at each computational step, it is only the internal state that changes. The concept can be demonstrated by unrolling the network in time, shown in Figure \ref{fig: rnn-diagram}. \citet{tsantekidis-2022} note that to avoid confusion is important to remember that the sequence of networks depicted in illustrations such as Figure BELOW are in fact just the same network only at different points in time, with the connecting arrows between each signifying that the output at time $t-1$ is being passed on to the same network at the subsequent timestep $t$.
+
+    \begin{figure}[h]
+        \label{fig: rnn-diagram}
+        \centering
+        \includegraphics[width=0.5\textwidth]{rnn.png}
+        \caption{\centering Diagram of a RNN at a single timestep $t$ (left) and unrolled in time between timesteps $0$ and $t$ (right)}
+    \end{figure}
+
+    To capture more information from the input sequences, RNNs can consist of multiple internal layers (shown in Figure BELOW), allowing them to learn higher-dimensional internal representations \citep{bengio-2009}. In this case, each layer $i$ retains its own internal state $h^{(i)}_t$, which is passed on to both the next layer of the network to compute its state $h^{(i+1)}_t$ (at the current input timestep) and reccurred back into itself at the subsequent timestep to compute the state $h^{(i)}_{t+1}$ \citep{zhang-2021}. 
+
+    \begin{figure}[h]
+        \label{fig: deep-rnn}
+        \centering
+        \includegraphics[width=0.5\textwidth]{rnn.png}
+        \caption{\centering Diagram of a multi-layer RNN (showing layers $1$ to $L$) with each layer unrolled in time between timesteps $1$ and $T$}
+    \end{figure}
+
+
+    \subsection{Training}
+
+    Training of RNNs can be conducted through a similar backpropagation process to that used on traditional DNNs. This is done through computing the final output of the network on a given sequence (i.e. the output state at the final timestep) and evaluating the loss function between this and the true result, finding the total error of the RNN. The error is then propagated backwards through both the internal layers of the network and through time to the network state at each timestep of the input sequence---and hence is referred to as \emph{backpropagation through time} \citep{zhang-2021}. This allows the training procedure to adjust both the network parameters (i.e. weights $W$ and biases $b$) and the parameters $\theta^{(g)}$ of the state function $g$ determining how exactly the internal state $h^{(i)}_t$ is updated at each timestep.
+
+
+    \subsection{Applications}
+
+    Much recent research into sequence learning has exploited recurrent networks to conduct accurate modelling. In their review of the applications of RNNs within this domain, \citet{lipton-2015} explain how NLP tasks and time-series forecasting are the most common avenues explored by researchers utilising RNNs. These two areas have been extensively surveyed in literature; in their review of DL for NLP, described the rapidly increasing popularity of RNNs in recent years, highlighting language modelling, machine translation, speech recognition, and image captioning as major areas of recent process. They highlight the RNN model of \citet{karpathy-2015} for generating image descriptions---which significantly outperformed existing baselines---as a illustrative example of the benefits provided by this architecture. Additionally, \citet{hewamalage-2021} survey the current and future applications of RNNs for time series forecasting, highlighting the recent success of this model architecture at forecasting competitions, such as an RNN-based model by \citet{smyl-2020} winning The M4 Competition in 2019 with cutting-edge accuracy nearly $10\%$ greater than the utilised baseline \citep{makridakis-2020}.
+
+
+
+
 
     % --------------------  EXPERIMENTS ----------------------
     \newpage
