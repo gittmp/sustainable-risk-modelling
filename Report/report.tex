@@ -1,5 +1,5 @@
 % ------------------ DOCUMENT SETUP / PACKAGES ------------------ 
-\documentclass[a4paper, 11pt]{report}
+\documentclass[a4paper, 12pt]{report}
 \usepackage[a4 paper, top=25mm, bottom=25mm]{geometry}
 % \usepackage{times}
 
@@ -129,7 +129,7 @@
     % -----------------  ACKNOWLEDGEMENTS  -------------------
     \newpage
     \chapter*{Acknowledgements}
-    \addcontentsline{toc}{chapter}{Acknowledgement}
+    \addcontentsline{toc}{chapter}{Acknowledgements}
 
 
     % -----------------  TABLE OF CONTENTS -------------------
@@ -160,7 +160,7 @@
     \section{Topic \& Background}
     \label{section: topic}
 
-    Many industries have recently been under increased pressure to monitor and rectify their environmental impact. This pressure is typically directed towards the perceived high carbon industries that constitute the major pollutant sectors of the economy, such as transport, energy supply, and agriculture. For example, recent estimates suggest that of the $33.5$ billion tons of carbon dioxide emissions generated globally in 2018, $8$ billion tons could be attributed to the transport sector \citep{iea-2022}, and $60.3$ billion tons to farming and livestock \citep{ahmad-2022}. These concerning figures have rightly sparked increased international discussion surrounding global carbon emissions and sustainability, such as the 2021 \emph{United Nations Climate Change Conference} (COP26).
+    Many industries have recently been under increased pressure to monitor and rectify their environmental impact. This pressure is typically directed towards the perceived high carbon industries that constitute the major pollutant sectors of the economy, such as transport, energy supply, and agriculture. For example, recent estimates suggest that of the $33.5$ billion tons of carbon dioxide emissions generated globally in 2018, $8$ billion tons could be attributed to the transport sector \citep{iea-2022}, and $6$ billion tons to farming and livestock \citep{ahmad-2022}. These concerning figures have rightly sparked increased international discussion surrounding global carbon emissions and sustainability, such as the 2021 \emph{United Nations Climate Change Conference} (COP26).
 
 
     \subsection{Sustainable Finance}
@@ -240,7 +240,7 @@
     The baseline model is then extended with energy-efficient methods proposed by the field of Green AI. These methods adapt the way in which the LSTM-based model is trained, minimising its resource requirements. An analysis similar to that conducted upon the baseline model is then conducted, quantifying the reduction in time and energy (and hence carbon emissions) made by these energy-efficient extensions. Specifically, methods such as \emph{progressive training} and \emph{mixed-precision} training are explored, and their benefits shown. Beyond these initial adaptations, data-efficient extensions to the training process are additionally be explored, such as the use of \emph{active learning}. These methods, also adapted from Green AI research, further reduce the resource requirements of a DL model, reducing the amount of training data necessary and thus also reducing the memory and energy required by the DL training process.
 
     Given these energy and data-efficient model extensions, an extensive analysis of the benefit of Green AI methods to this domain is made. This compares both the accuracy of the final model and each energy and data-efficient extension to the original baseline model. The resource requirements (in terms of time, data, and energy) required for training will then be compared, to evaluate any accuracy-efficiency compromises made. A general conclusion is then settled upon as to the utility and viability of Green AI methods to Fintech, sustainable finance, and the finance industry in general.
-
+    \\ \\
     The aforementioned research will be organised as follows: 
 
     \begin{itemize}
@@ -260,6 +260,31 @@
     \newpage
     \chapter{Background \& Literature Review}
     \label{chapter: literature}
+
+    To understand how Fintech can be aligned with the goals of sustainable finance, first, a detailed understanding of ML and DL must be conveyed, and then the avenues used in Green AI to improve the efficiency of these methods can be effectively conveyed. This chapter achieves this by initially introducing the relevant background literature within the field of ML, centring the research of this thesis within the context of existing scientific literature. Specifically, this begins with a general summary of the components and characteristics of ML and DL methods, before focussing on the specific models and structures used within the chosen application of financial volatility modelling. The second part of the chapter outlines the field of Green AI, its motivations, applications, and the relevant tools and practices used in this domain to improve the energy efficiency of DL. These overviews of DL and Green AI act as the basis for the experimentation and analysis that follow within this thesis. Hence, the chapter concludes by drawing together these concepts to evaluate the current state of this research domain and identify the research gaps focussed upon by this thesis.
+
+
+    \section{Machine Learning}
+
+    The field of machine learning, first discussed by Arthur Samuel in his 1953 exploration of ``mechanical brains" \citep{samuel-1959}, is a subset of artificial intelligence concerned with using data to allow computer programs to independently learn how to complete a given task without explicit information about the rules of such task \citep{samuel-1959}. This learning typically involves a \emph{training} procedure, where the program is supplied with instances of experience from the training dataset describing the problem to be solved. The program learns from dataset $D$ how to perform the desired task $T$ by taking input of a data instance and outputting the result it believes is correct in this scenario. This result is then evaluatied through some performance metric $P$ (typically computed through a \emph{loss function}). For example, in a \emph{prediction} task, the program takes input of a sequence of values relating to some variable and outputs what it predicts to be the next value in the sequence: e.g. \citet{xiong-2015} use a dataset of S\&P 500 values and Google domestic trends to predict future stock market volatility. Alternatively, in a \emph{classification} task, a data point is input into the program to be assigned to a distinct class: e.g. \citet{sadgali-2019} use financial transaction data to classify whether a partiuclar transacition is fradulent or not. Such tasks are typically trained through \emph{supervised learning}, where the correct result (known as the \emph{label}) is provided to the program after it has produced its output, and the correctness of its solution is evaluated through the given metric $P$ (producing an \emph{accuracy} value), and its bahaviour adjusted to maximise performance according to $P$.
+
+
+    \subsection{Neural Networks}
+
+    Since the conception of machine learning, a core goal has been the development of algorithms that can accurately mimic the processing mechanisms of the human brain. These algorithms, known as \emph{artificial neural networks} (ANN), typically centre around neural models that recreate a version of the complex system of communications between neurons in the brain. The first implementation of such a model was Frank Rosenblatt's \emph{Mark I Perceptron} \citep{rosenblatt-1958}, which attempted to perform binary classification of images. Each pixel in the input image was represented as a single value in a 2-dimensional matrix of input neurons known as the \emph{input layer}. These values were then passed to the single internal neuron through \emph{weighted channels} to compute the weighted sum of all input values,  the result of which was passed through an \emph{activation function} to normalise the result to zero or one—representing an output classification of 'class zero' or 'class one'. 
+
+
+    \subsection{Deep Learning}
+
+    Whilst Rosenblatt's model produced underwhelming results due to its simplicity, its design became a fundamental building block of the larger, more complex ANNs used today. Namely, modern networks build on this approach by having wider and deeper \emph{model architectures} consisting of more internal neurons arranged in multiple layers. This approach of using \emph{multi-layer perceptrons} was popularised by \citet{rumelhart-1986}; however, recent work has pushed the boundaries of neural network performance by designing deeper and deeper architectures---known as \emph{deep neural networks} (DNNs)---to establish the field of deep learning. These deep networks perform computations in a similar vein to Rosenblatt's perceptron. Information is passed between the input layer $l^{(0)}$ and output layer $l^{(L-1)}$ along weighted channels between neurons, with the \emph{activation value} $a^{(i)}_n$ assigned each neuron $n$ in layer $i$ being determined through the dot product between the weights $W^{(i-1, i)}$ of channels entering $n$ and the values $x^{(i-1)}$ of neurons in the preceding layer $i-1$ connected through those channels \citep{witten-2017}. This product is then summed with a \emph{bias} term $b^{(i)}$, and passed through a chosen activation function $\alpha$ (Equation \ref{eq: activation-value}).
+
+    \begin{equation}
+        \label{eq: activation-value}
+        a^{(i)}_n = \alpha( W^{(i-1, i)} \cdot x^{(i-1)} + b^{(i)} )
+    \end{equation}
+
+    This computation is performed over all layers of the network, starting with the input layer---whose neurons take the values of the input vector---and propagating through to the output layer—the values of which are the final network output. During training, the values of the network's parameters (i.e. the elements of weight matrix $W$ and bias vector $b$) are adjusted as the model learns, manipulating its outputs to more closely align with the true labels. \emph{Backpropagation} can be used to implement this tuning process, where the gradient of loss function with respect to the parameters is determined by propagating the error of the network on the current input backwards through all its layers \citep{zaras-2022}. These parameters can then be adjusted in the direction of the negative gradient through \emph{gradient descent} (towards the minimum of the loss function).
+
 
 
     % --------------------  EXPERIMENTS ----------------------
