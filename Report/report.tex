@@ -335,7 +335,7 @@
     \begin{figure}[h]
         \label{fig: rnn-diagram}
         \centering
-        \includegraphics[width=0.5\textwidth]{rnn.png}
+        \includegraphics[width=0.7\textwidth]{rnn.png}
         \caption{\centering Diagram of a RNN at a single timestep $t$ (left) and unrolled in time between timesteps $0$ and $t$ (right)}
     \end{figure}
 
@@ -344,7 +344,7 @@
     \begin{figure}[h]
         \label{fig: deep-rnn}
         \centering
-        \includegraphics[width=0.5\textwidth]{rnn.png}
+        \includegraphics[width=0.7\textwidth]{rnn.png}
         \caption{\centering Diagram of a multi-layer RNN (showing layers $1$ to $L$) with each layer unrolled in time between timesteps $1$ and $T$}
     \end{figure}
 
@@ -357,6 +357,71 @@
     \subsection{Applications}
 
     Much recent research into sequence learning has exploited recurrent networks to conduct accurate modelling. In their review of the applications of RNNs within this domain, \citet{lipton-2015} explain how NLP tasks and time-series forecasting are the most common avenues explored by researchers utilising RNNs. These two areas have been extensively surveyed in literature; in their review of DL for NLP, described the rapidly increasing popularity of RNNs in recent years, highlighting language modelling, machine translation, speech recognition, and image captioning as major areas of recent process. They highlight the RNN model of \citet{karpathy-2015} for generating image descriptions---which significantly outperformed existing baselines---as a illustrative example of the benefits provided by this architecture. Additionally, \citet{hewamalage-2021} survey the current and future applications of RNNs for time series forecasting, highlighting the recent success of this model architecture at forecasting competitions, such as an RNN-based model by \citet{smyl-2020} winning The M4 Competition in 2019 with cutting-edge accuracy nearly $10\%$ greater than the utilised baseline \citep{makridakis-2020}.
+
+
+    \section{Long Short-Term Memory}
+
+    \subsection{The Issue with Recurrent Networks}
+
+    The traditional RNN described above is incredibly effective at learning short-term dependencies within an input sequence, and exploiting these to make accurate predictions of subsequent values. In many cases, however, to understand the full context of a sequence longer-term dependencies need to be taken into account. Unfortunately, research into the effectiveness of recurrent networks by \citet{hochreiter-1991} and \citet{bengio-1994} has shown that RNNs cannot accurately capture or exploit long-term dependencies within sequences, as previous elements that are contextually relevant but were observed many timesteps ago can be forgotten prematurely. This issue is known as the short-term memory problem of RNNs, and is caused by the \emph{vanishing gradient problem} \citep{hochreiter-1991}. This issue is inherent to the backpropagation through time algorithm and the nature of recurrent variables. As demonstrated in Equation \ref{eq: rnn-state}, to calculate the value of a single recurrence involves multiplying by the weight matrix $W^{(g)}$: ignoring the bias and input element terms (as these aren't recurrent), we have $h_t = W^{(g)} \cdot h_{t-1}$. This poses a challenge when a recurrence is made over many steps, which is the case when evaluating the recurrent state function over many timesteps in a long sequence, as the same weight matrix is used over all recurrent state computations (shown in Equation \ref{eq: reccurent-weights} for a length $T$ sequence).
+
+    \begin{align}
+        \label{eq: reccurent-weights}
+        h_T &= W^{(g)} \cdot W^{(g)} \cdot \ldots \cdot W^{(g)} \cdot h_0 \\
+        &= (W^{(g)})^T \cdot h_0
+    \end{align}
+
+    Hence, the calculation is dependent on the computation of the weight matrix product $(W^{(g)})^T$; this means that if the parameters in the weight matrix are below one (i.e. we have $W^{(g)} < 1$) then the value of $(W^{(g)})^T$ will tend to zero with increasing sequence length $T$. This causes the gradient of the loss function with respect to the parameters $W^{(g)}$ to also tend to zero during backpropagation, meaning no significant updates are made to the values of $W^{(g)}$ when training on long sequences. Therefore, the gradient is said to \emph{vanish}, causing an inability of the network to learn dependencies over long sequences \citep{bengio-1994}.
+
+
+    \subsection{Long Short-Term Memory Networks}
+
+    Whilst several solutions to the vanishing gradient problem have been proposed---such as \emph{skip connections} and \emph{leaky recurrent units} \citep{pascanu-2012}---by far the most widespread approach is the use of \emph{Long Short-Term Memory} (LSTM), presented by \citet{hochreiter-1997}. An LSTM network is a RNN that uses multiple internal states and parameter matrices to mitigate the vanishing gradient problem and model both short-term and long-term dependencies within sequences. Similarly to an RNN, this architecture contains a core network consistent of one or more layers---where each layer is a distinct LSTM cell---and information is passed both between these cells (from the input to the output layer of the network) and between cell and and itself at the next timestep (reccuring the output at time $t-1$ to be input at time $t$). However, instead of the single recurrent state $h_t$ of the simple RNN, the LSTM contains two: a short-term memory state $h_t$ (analagous to that of a RNN) and long-term memory state $c_t$. This long-term state $c_t$ is used to retain information from far back in the input sequence, adding and forgetting relevant knowledge as the context of the sequence changes. 
+
+    At each timestep, the preceding long-term state $c_{t-1}$ is input into the LSTM cell (alongside the current sequence element $x_t$) to compute the new state $c_t$. These updates are achieved through several logical \emph{gates} within the network (between each cell and timestep). Firstly, the \emph{forget gate} is used to decide what information to discard from the previous state $c_{t-1}$. The previous short-term state $h_{t-1}$ and input element $x_t$ are multiplied with the forget gate's weight matrices $W^{(F)}$ and $U^{(F)}$ and added to its bias $b^{(F)}$, the result of which is passed through the \emph{sigmoid} activation function to produce the intermediate state value $\tilde{c}^{(F)}_t$, shown in Equation \ref{eq: forget-gate} \citep{zhang-2021}.
+
+    \begin{equation}
+        \label{eq: forget-gate}
+        \tilde{c}^{(F)}_t = \sigma( W^{(F)} \cdot h_{t-1} + U^{(F)} \cdot x_t + b^{(F)} )
+    \end{equation}
+
+    Secondly, when new relevant information is seen in the input sequence, the \emph{input gate} is used to add it to the long-term memory state $c_t$. This process similarly uses the short-term state $h_{t-1}$ and current input $x_t$, but evaluates both a sigmoid and \emph{hyperbolic tangent} activation function in parallel on these inputs to decide both which values of $c_{t-1}$ must be updated (through the sigmoid evaluation) and by how much (the tangent evaluation). The result of these two operations are then multiplied together to give the second intermediate state value $\tilde{c}^{(I)}_t$, shown in Equation \ref{eq: input-gate} \citep{zhang-2021}.
+
+    \begin{align}
+        \label{eq: input-gate}
+        (\tilde{c}^{(I)}_t)_{\sigma} &= \sigma( W^{(I,0)} \cdot h_{t-1} + U^{(I,0)} \cdot x_t + b^{(I,0)} ) \\
+        (\tilde{c}^{(I)}_t)_{\tanh} &= \tanh{( W^{(I,1)} \cdot h_{t-1} + U^{(I,1)} \cdot x_t + b^{(I,1)} )} \\
+        \tilde{c}^{(I)}_t &= (\tilde{c}^{(I)}_t)_{\sigma} \cdot (\tilde{c}^{(I)}_t)_{\tanh}
+    \end{align}
+
+    Both intermediate state values $\tilde{c}^{(F)}_t$ and $\tilde{c}^{(I)}_t$ are combined to give the new updated long-term state $c_t$ (Equation \ref{eq: long-state}).
+
+    \begin{equation}
+        \label{eq: long-state}
+        c_t = \tilde{c}^{(F)}_t \cdot c_{t-1} + \tilde{c}^{(I)}_t
+    \end{equation}
+
+    The third and final gate used by LSTMs is the \emph{output gate}, which decides what each cell outputs. This is used as both the short-term state $h_t$ and the final network output $y$. The output gate uses the newly computed long-term state $c_t$, input $x_t$, and previous short-term state $h{t-1}$; a biased weighted sum of $h^{t-1}$ and $x_t$ is computed and fed into the sigmoid function, which is then multiplied by the hyperbolic tangent function evaluated on $c_t$ (Equation \ref{eq: output-gate}). Similarly to within the input gate, the sigmoid evaluation determines the values of $h_{t-1}$ to be updated, and the tangent evaluation determines by how much \citep{zhang-2021}.
+
+    \begin{align}
+        \label{eq: output-gate}
+        (h_t)_{\sigma} &= \sigma( W^{(O)} \cdot h_{t-1} + U^{(O)} \cdot x_t + b^{(O)} ) \\
+        (h_t)_{\tanh} &= \tanh{( c_t )} \\
+        h_t &= (h_t)_{\sigma} \cdot (h_t)_{\tanh}
+    \end{align}
+
+    This system of gates occurs in every LSTM cell, passing information from the input to output layer of the network at every timestep in the form of the short and long-term states. When the network reaches the final timestep, the short-term state is output as the final network output $y$; note, if the sequence modelling problem involves outputting a generated sequence of length $N$ (e.g. forecasting multiple future values of a time series), this is produced one element at a time over $N$ additional timesteps that take no input and output the value $y_i = h_{T+i}$.
+
+
+    \subsection{Applications}
+
+    Whilst reviewing modern RNN architectures, \citet{lipton-2015} note that most state-of-the-art applications within the field of sequence learning use a LSTM-based model. Similarly,  in their review of the applications of this architecture and its variants \citet{yu-2019} assert that ``almost all" important recent advancements in this domain have been facilitated by LSTMs. This is primarily due to the architecture's ability to accurately model both long and short-term dependencies in sequences; hence, such networks are largely used for the same sequence modelling problems as traditional RNNs. 
+
+    Due to the superior accuracy provided by this architecture, one of the most common use cases of LSTMs for sequence learning is NLP. For example, in their exhaustive study of language modelling, \citet{jozefowicz-2016} found an LSTM-based network to provide the most competitive results in this field. Their work evaluated several ML models such as \emph{convolutional neural networks} and RNNs, finding that a large scale LSTM language model produced the best results, significantly improving state-of-the-art \emph{perplexity} (a commonly used NLP metric of prediction error) from $51.3$ to $30.0$ on the commonly used \emph{One Billion Word Benchmark} dataset \citep{chelba-2013}. Recently, LSTM models have been applied to even more complex tasks within the NLP space due to the ability to capture high-fidelity dependencies. This includes the work of \citet{saleh-2021} who used an LSTM-based DNN to detect hate speech in online content, producing an impressive \emph{F1-score} (the weighted average of a model's \emph{precision} and \emph{recall}) of $93\%$ on a composite dataset from multiple online hate speech repositories.
+
+    Like other RNNs, LSTMs have also been widely used for time series forecasting. Due to the advantages provided by these networks’ ability to model long-term dependencies, the benefits of LSTMs have been explored across an extensive spectrum of different time series applications. For example, \citet{shi-2022} recently compared the performance of a number of networks (including both traditional RNNs and LSTMs) for predicting Bejing air quality. They concluded that LSTMs generated more accurate predictions than simpler RNNs, and demonstrated their improved long-term memory by showing LSTMs outperform other networks even when the context window available to the model is small. Another popular area of time series forecasting in which LSTM networks are increasingly being used is in the prediction of financial market variables, such as commodity prices \citep{ly-2021}, stock market indices like the S\&P 500 \citep{fjellstrom-2022}, currency pairs on the Foreign Exchange \citep{qi-2021}, and the fluctuations of financial market risk \citep{du-2019}.
+
+
 
 
 
