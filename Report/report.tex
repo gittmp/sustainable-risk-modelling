@@ -378,6 +378,13 @@
 
     Whilst several solutions to the vanishing gradient problem have been proposed---such as \emph{skip connections} and \emph{leaky recurrent units} \citep{pascanu-2012}---by far the most widespread approach is the use of \emph{Long Short-Term Memory} (LSTM), presented by \citet{hochreiter-1997}. An LSTM network is a RNN that uses multiple internal states and parameter matrices to mitigate the vanishing gradient problem and model both short-term and long-term dependencies within sequences. Similarly to an RNN, this architecture contains a core network consistent of one or more layers---where each layer is a distinct LSTM cell---and information is passed both between these cells (from the input to the output layer of the network) and between cell and and itself at the next timestep (reccuring the output at time $t-1$ to be input at time $t$). However, instead of the single recurrent state $h_t$ of the simple RNN, the LSTM contains two: a short-term memory state $h_t$ (analagous to that of a RNN) and long-term memory state $c_t$. This long-term state $c_t$ is used to retain information from far back in the input sequence, adding and forgetting relevant knowledge as the context of the sequence changes. 
 
+    \begin{figure}[h]
+        \label{fig: lstm}
+        \centering
+        \includegraphics[width=0.7\textwidth]{lstm.png}
+        \caption{\centering Diagram of a the arrangement of logical gates within a LSTM cell}
+    \end{figure}
+
     At each timestep, the preceding long-term state $c_{t-1}$ is input into the LSTM cell (alongside the current sequence element $x_t$) to compute the new state $c_t$. These updates are achieved through several logical \emph{gates} within the network (between each cell and timestep). Firstly, the \emph{forget gate} is used to decide what information to discard from the previous state $c_{t-1}$. The previous short-term state $h_{t-1}$ and input element $x_t$ are multiplied with the forget gate's weight matrices $W^{(F)}$ and $U^{(F)}$ and added to its bias $b^{(F)}$, the result of which is passed through the \emph{sigmoid} activation function to produce the intermediate state value $\tilde{c}^{(F)}_t$, shown in Equation \ref{eq: forget-gate} \citep{zhang-2021}.
 
     \begin{equation}
